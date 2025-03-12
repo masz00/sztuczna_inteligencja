@@ -1,0 +1,41 @@
+(define
+	(domain world-of-blocks)
+	(:requirements :adl)
+	(:predicates
+		(kolorW ?x ?y)
+		(przejscie ?x ?x ?z)
+		(jestW ?x)
+		(maKolor ?x ?y)
+		(maKulke ?x)
+	)
+	(:action wez
+		:parameters (?kolor ?skad ?typ)
+		:precondition
+		(and
+		    (jestW ?skad)
+			(kolorW ?kolor ?skad)
+			(maKolor ?kolor ?typ)
+		)
+		:effect
+		(and
+			(not (kolorW ?kolor ?skad))
+			(maKulke ?kolor)
+		)
+	)
+	(:action idz
+		:parameters (?dokad ?skad ?kolor ?typ)
+		:precondition
+		(and
+		    (jestW ?skad)
+		    (maKolor ?kolor ?typ)
+		    (maKulke ?kolor)
+			(przejscie ?skad ?dokad ?typ)
+		)
+		:effect
+		(and
+			(not (maKulke ?kolor))
+			(jestW ?dokad)
+			(not (jestW ?skad))
+		)
+	)
+)

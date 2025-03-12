@@ -1,0 +1,49 @@
+(define (problem all-on-stack)
+    (:domain world-of-blocks)
+    (:objects a b c d e f)
+    (:init
+	(clear a)
+	(clear b)
+	(clear c)
+	(clear d)
+	(clear e)
+    (clear f)
+  	(on-floor a)
+	(on-floor b)
+	(on-floor c)
+	(on-floor d)
+	(on-floor e)
+    (on-floor f)
+
+
+    )
+
+   (:goal
+    (and
+        (exists (?x) 
+            (and 
+                (on-floor ?x)
+                (forall (?z)
+                    (or
+                        (exists (?w) (on-top ?z ?w)) 
+                        (= ?z ?x)
+                    )
+                )
+            )
+        
+        )
+    )
+    )
+)
+
+
+
+
+
+
+
+
+
+
+
+

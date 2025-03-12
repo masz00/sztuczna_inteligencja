@@ -1,0 +1,44 @@
+(define
+	(domain hanoi)
+	(:types disk rod)
+	(:requirements :adl)
+	;;(:constants x y z - rod)
+	(:predicates
+		(lt ?x ?y - disk)
+		(on-rod ?x -rod ?d -disk) ;; na którym paliku jest dysk
+	)
+	(:action przesun-na-pusty
+	    :parameters (?x ?y - rod ?d - disk)
+	    :precondition
+	    (and
+	        (on-rod ?x ?d)
+	        (forall (?d2 -disk)
+	            (or
+    	            (not(on-rod ?x ?d2))
+    	            (lt ?d ?d2)
+	            )
+	        )
+	        (not(exists (?d3 -disk) (on-rod ?y ?d3)))
+	    )
+	    :effect
+	    (and
+	        (not(on-rod ?x ?d))
+	        (on-rod ?y ?d)
+	    )
+	)
+	(:action przesun
+	    :parameters (?x ?y - rod ?d1 ?d2 - disk)
+	    :precondition
+	    (and
+	        (not(=?x ?y))
+	        (on-rod ?x ?d1)
+	        (on-rod ?y ?d2)
+	        (lt ?d1 ?d2)
+	    )
+	    :effect
+	    (and
+	        (not(on-rod ?x ?d1))
+	        (on-rod ?y ?d1)
+	    )
+	)
+)

@@ -1,0 +1,65 @@
+(define (domain world-of-blocks)
+    (:requirements :adl)
+    (:predicates
+        (on-top ?x ?y)
+        (on-floor ?x)
+        (on-hold ?x)
+        (clear ?x)
+    )
+    (:action podnies-z-paczki
+        :parameters (?x ?z)
+        :precondition
+        (and
+            (not (exists (?y)(on-hold ?y)))
+            (clear ?x)
+            (on-top ?x ?z)
+        )
+        :effect
+        (and
+            (on-hold ?x)
+            (not(on-top ?x ?z))
+            (clear ?z)
+        )
+    )
+    (:action opusc-na-paczke
+        :parameters (?x ?z )
+        :precondition
+        (and
+            (clear ?z)
+            (on-chwytak ?z)
+        )
+        :effect
+        (and
+            (not (on-chwytak ?x))
+            (on-top ?x ?z)
+            (clear ?x)
+        )
+    )
+    (:action podnies-z-podlogi
+        :parameters (?x)
+        :precondition
+        (and
+            (not (exists (?y)(on-chwytak ?y)))
+            (clear ?x)
+            (on-floor ?x)
+        )
+        :effect
+        (and
+            (on-chwytak ?x)
+            (not(on-floor ?x))
+        )
+    )
+    (:action opusc-na-podloge
+        :parameters (?x)
+        :precondition
+        (and
+            (on-chwytak ?x)
+        )
+        :effect
+        (and
+            (on-floor ?x)
+            (clear ?x)
+            (not (on-chwytak ?x))
+        )
+    )
+)

@@ -1,0 +1,19 @@
+(define (problem five-packages)
+    (:domain world)
+    (:objects a b c d e)
+    (:init
+        (clear c)
+        (clear e)
+        (on-top c b)
+        (on-top b a)
+        (on-top e d)
+        (on-floor a)
+        (on-floor d)
+    )
+    (:goal
+        (and
+            (on-top d b)
+            (exists (?x)(on-top b ?x))
+        )
+    )
+)

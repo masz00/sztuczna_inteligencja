@@ -1,0 +1,84 @@
+(define
+	(domain hanoi)
+	(:requirements :adl)
+	(:predicates
+		(na-paliku ?x ?y)
+		(na ?x ?y)
+        (wieksze ?x ?y)
+        (pusty ?y)
+        (dostepny ?x)
+	)
+	
+	(:action przesun-na-pusty
+		:parameters (?skad ?dokad ?co ?zczego)
+		:precondition
+		(and
+		    (na-paliku ?co ?skad)
+			(pusty ?dokad)
+			(dostepny ?co)
+			(na ?zczego ?co)
+		)
+		:effect
+		(and
+			(not (pusty ?dokad))
+			(dostepne ?zczego)
+		)
+	)
+	
+	(:action przesun
+		:parameters (?skad ?dokad ?co ?zczego ?naco)
+		:precondition
+		(and
+		    (na-paliku ?co ?skad)
+			(wieksze ?naco ?co)
+			(dostepny ?co)
+			(na ?zczego ?co)
+		)
+		:effect
+		(and
+			(not (pusty ?dokad))
+			(dostepne ?zczego)
+		)
+	)
+)
+
+
+(define (problem hanoi)
+    (:domain hanoi)
+    (:objects x y z k1 k2 k3 k4 k5)
+    (:init
+        (na-paliku k1 x)
+        (na-paliku k2 x)
+        (na-paliku k3 x)
+        (na-paliku k4 x)
+        (na-paliku k5 x)
+        (na k1 k2)
+        (na k2 k3)
+        (na k3 k4)
+        (na k4 k5)
+        (wieksze k5 k1)
+        (wieksze k5 k2)
+        (wieksze k5 k3)
+        (wieksze k5 k4)
+        (wieksze k4 k1)
+        (wieksze k4 k2)
+        (wieksze k4 k3)
+        (wieksze k3 k2)
+        (wieksze k3 k1)
+        (wieksze k2 k1)
+        (pusty y)
+        (pusty z)
+        (dostepny k1)
+    )
+    (:goal 
+        (and
+            (na-paliku k1 z)
+            (na-paliku k2 z)
+            (na-paliku k3 z)
+            (na-paliku k4 z)
+            (na-paliku k5 z)
+            (pusty y)
+            (pusty x)
+        )
+    )
+)
